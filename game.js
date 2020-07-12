@@ -1,5 +1,4 @@
 let canvas;
-let canvasContext;
 let world = [];
 let columns;
 let rows;
@@ -12,7 +11,6 @@ window.onload = function () {
 
 function setGrid() {
     canvas = document.getElementById('gameCanvas');
-    canvasContext = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     columns = canvas.width / 24;
@@ -54,18 +52,31 @@ function Cell(isAlive, posX, posY) {
     this.posY = posY;
 }
 
+let play = false;
 function setGameLoop() {
-    const framesPerSecond = 5;
-    setInterval(function () {
-        drawEverything();
-    }, 2500 / framesPerSecond);
+
+        const framesPerSecond = 5;
+        setInterval(function () {
+            if(play) {
+                drawEverything();
+            }
+        }, 2500 / framesPerSecond);
+
+}
+
+function playGame() {
+    play = true;
+}
+
+function stopGame() {
+    play = false;
 }
 
 function drawEverything() {
     drawBackground();
     countNeighbours();
     setCellState();
-    drawNewGeneration();
+    nextGeneration();
 }
 
 function drawBackground() {
@@ -73,6 +84,7 @@ function drawBackground() {
 }
 
 function colorRect(leftX, topY, width, height, drawColor) {
+    let canvasContext = canvas.getContext('2d');
     canvasContext.fillStyle = drawColor;
     canvasContext.fillRect(leftX, topY, width, height);
 }
@@ -127,7 +139,7 @@ function setCellState() {
     }
 }
 
-function drawNewGeneration() {
+function nextGeneration() {
     for (let i = 1; i < columns - 1; i++) {
         for (let j = 1; j < rows - 1; j++) {
             if (world[i][j].isAlive) {
@@ -136,5 +148,16 @@ function drawNewGeneration() {
         }
     }
 }
+
+function findScreenCoords(mouseEvent)
+{
+    var xpos;
+    var ypos;
+    //FireFox
+    xpos = mouseEvent.screenX;
+    ypos = mouseEvent.screenY;
+    console.log(xpos + ", " + ypos)
+}
+
 
 

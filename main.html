@@ -7,12 +7,13 @@
 </head>
 
 <body>
+
 <div style="text-align:center;">
-    <canvas id="gameCanvas"></canvas>
+    <button onclick="playGame()">Play game</button>
+    <button onclick="stopGame()">Stop game</button>
+    <canvas id="gameCanvas" onclick="findScreenCoords(event)"></canvas>
 </div>
 
 <script type="text/javascript" src="game.js"></script>
-
-
 </body>
 </html>
