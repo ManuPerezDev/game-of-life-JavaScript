@@ -1,0 +1,26 @@
+{
+  "name": "Game-of-life_javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "__tests__"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pandacore/game-of-life-JavaScript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pandacore/game-of-life-JavaScript/issues"
+  },
+  "homepage": "https://github.com/Pandacore/game-of-life-JavaScript#readme",
+  "devDependencies": {
+    "jest": "^26.1.0"
+  }
+}
