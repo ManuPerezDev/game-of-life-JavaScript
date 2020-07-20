@@ -1,9 +1,14 @@
+import Cell from "./Cell.js";
+
 let canvas;
 let world = [];
 let columns;
 let rows;
 
 window.onload = function () {
+    document.getElementById('playButton')
+        .addEventListener('click', playGame);
+
     setGrid();
     setWorld();
     setGameLoop();
@@ -23,7 +28,6 @@ function setWorld() {
 }
 
 function populateWorld() {
-
     let y = 0
     for (let i = 0; i < columns; i++) {
         let x = 0;
@@ -44,23 +48,7 @@ function setAliveCells() {
     world[11][9].setState(true);
 }
 
-function Cell(state, x, y) {
-    let size = 24;
-    let isAlive = state;
-    let neighbours = 0;
-    let posX = x;
-    let posY = y;
 
-    return {
-        size: function () { return size; },
-        isAlive: function () { return isAlive; },
-        neighbours: function () { return neighbours; },
-        posX: function () { return posX; },
-        posY: function () { return posY; },
-        setState: function (newState) { isAlive = newState; },
-        setNeighbours: function (newNeighbours) { neighbours = newNeighbours; }
-    }
-}
 
 let play = false;
 function setGameLoop() {
