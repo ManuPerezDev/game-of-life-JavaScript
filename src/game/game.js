@@ -1,14 +1,25 @@
 import World from "./World.js";
 let world;
-let grid;
+let neighborhood;
+let canvas;
+let columns;
+let rows;
 
 window.onload = function () {
+    setGrid();
     world = World();
-    grid = world.world();
-    world.setGrid();
-    world.populateWorld();
+    neighborhood = world.getNeighborhood();
+    world.populateWorld(columns, rows);
     world.setAliveCells();
     setGameLoop();
+}
+
+function setGrid() {
+    canvas = document.getElementById('gameCanvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = canvas.width / 24;
+    rows = canvas.height / 24;
 }
 
 function setGameLoop() {
@@ -20,26 +31,26 @@ function setGameLoop() {
 
 function drawEverything() {
     drawBackground();
-    world.countNeighbours();
-    world.setCellState();
-    nextGeneration();
+    world.countNeighbours(columns, rows);
+    world.setCellState(columns, rows);
+    paintNextGeneration();
 }
 
 function drawBackground() {
-    colorRect(0, 0, world.canvas().width, world.canvas().height, 'black');
+    colorRect(0, 0, canvas.width, canvas.height, 'black');
 }
 
 function colorRect(leftX, topY, width, height, drawColor) {
-    let canvasContext = world.canvas().getContext('2d');
+    let canvasContext = canvas.getContext('2d');
     canvasContext.fillStyle = drawColor;
     canvasContext.fillRect(leftX, topY, width, height);
 }
 
-function nextGeneration() {
-    for (let i = 1; i < world.columns() - 1; i++) {
-        for (let j = 1; j < world.rows() - 1; j++) {
-            if (grid[i][j].isAlive()) {
-                colorRect(grid[i][j].posX(), grid[i][j].posY(), grid[i][j].size(), grid[i][j].size(),'white');
+function paintNextGeneration() {
+    for (let i = 1; i < columns - 1; i++) {
+        for (let j = 1; j < rows - 1; j++) {
+            if (neighborhood[i][j].isAlive()) {
+                colorRect(neighborhood[i][j].posX(), neighborhood[i][j].posY(), neighborhood[i][j].size(), neighborhood[i][j].size(),'white');
             }
         }
     }
